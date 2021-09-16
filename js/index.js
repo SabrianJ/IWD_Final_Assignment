@@ -1,20 +1,100 @@
+var initialX = 70;
+var initialY = 70;
+var second = document.getElementById('secondCanvas');
+var ctx = second.getContext("2d");
+
 window.onload = drawCircle;
 
 function drawCircle(){
-
-  var second = document.getElementById('secondCanvas');
-  var ctx = second.getContext("2d");
-
-
   ctx.beginPath();
-  ctx.arc(70, 70, 50, 0, Math.PI * 2);
+  ctx.arc(initialX, initialY, 50, 0, Math.PI * 2);
   ctx.stroke();
 }
 
-window.onkeydown = myFunction;
+function checkCollision(){
 
-function myFunction(event){
-  alert(event.keyCode);
+  if((initialX + 50) >= second.width){
+    return true;
+  }
+
+  if(initialX - 50 < 0){
+    return true;
+  }
+
+  if((initialY + 50) >= second.height){
+    return true;
+  }
+
+  if(initialY - 50 < 0){
+    return true;
+  }
+
+  return false;
+
+}
+
+window.onkeydown = onKeyDown;
+
+function clear(myCanvas){
+  ctx.clearRect(0,0, myCanvas.width, myCanvas.height);
+}
+
+function onKeyDown(event){
+
+  switch(event.code){
+    case "KeyA":
+      --initialX;
+
+      if(checkCollision()){
+        ++initialX;
+        alert("Collision detected");
+      }else{
+        clear(second);
+        drawCircle();
+      }
+
+      break;
+    case "KeyD":
+      ++initialX;
+
+      if(checkCollision()){
+        --initialX;
+        alert("Collision detected");
+      }else{
+        clear(second);
+        drawCircle();
+      }
+
+      break;
+    case "KeyW":
+      --initialY;
+
+      if(checkCollision()){
+        ++initialY;
+        alert("Collision detected");
+      }else{
+        clear(second);
+        drawCircle();
+      }
+
+      break;
+    case "KeyS":
+      ++initialY;
+
+      if(checkCollision()){
+        --initialY;
+        alert("Collision detected");
+      }else{
+        clear(second);
+        drawCircle();
+      }
+
+      break;
+    default:
+      alert("Only W, A, S, D can be pressed");
+
+  }
+   event.preventDefault();
 }
 
 
