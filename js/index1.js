@@ -25,10 +25,12 @@ function init() {
     canvas.style.backgroundImage = "url('images/beach.jpg')";
     ctx.drawImage(playerFace, playerX, playerY,175,175);
     ctx.fillStyle = "#ff0000";
-    // ctx.translate((0/2),(140/2));
-    ctx.rotate( (Math.PI / 180) * 50);
+    // ctx.translate(0,100);
+    // ctx.rotate( (Math.PI / 180) * -6);
     // ctx.translate(-(0/2),-(140/2));
-    ctx.fillRect(0,140, 1375, 1);
+    // ctx.fillRect(0,140, 1375, 1);
+    // ctx.rotate( (Math.PI / 180) * 6);
+    ctx.translate(0,0);
 }
 
 // if (a.x < b.x + b.width &&
@@ -52,14 +54,27 @@ function checkCollision(){
   if(playerX >= 1810){
     return true;
   }
+
+  var stepCount = 0;
+  for(var i=81; i >= -52 ; i-=7){
+    if(playerY == i && playerY > 4 && playerX < (40 * stepCount)){
+      return true;
+    }else if(playerY == i && playerY <= 4 && playerX < (50 * stepCount)){
+      return true;
+    }else if(playerY == -52 && playerX < 1150){
+      return true;
+    }
+    stepCount++;
+  }
 }
+
+
 
 function onKeyDown(event){
 
   switch(event.code){
     case "KeyA":
       playerX -= playerSpeed;
-
       if(checkCollision()){
         alert("You can't move ahead");
         playerX += playerSpeed;
@@ -69,6 +84,7 @@ function onKeyDown(event){
       break;
     case "KeyD":
       playerX += playerSpeed;
+      console.log(playerY);
       if(checkCollision()){
         alert("You can't move ahead");
         playerX -= playerSpeed;
@@ -78,7 +94,6 @@ function onKeyDown(event){
       break;
     case "KeyW":
       playerY -= playerSpeed;
-
       if(checkCollision()){
         alert("You can't move ahead");
         playerY += playerSpeed;
