@@ -9,7 +9,12 @@ var playerRight = document.getElementById("playerRight");
 var playerX = 300;
 var playerY = 200;
 var playerSpeed = 7;
+var currentKey ="W";
+var circles = [];
+var circlesCount = 0;
+var numberOfRefresh = 0;
 
+window.onload = setInterval(randomize,1);
 window.onload = init;
 window.onkeydown = onKeyDown;
 
@@ -17,19 +22,94 @@ function clear(){
   ctx.clearRect(0,0, canvas.width, canvas.height);
 }
 
-function init() {
+function randomize(){
+  canvas = document.getElementById("game");
+  ctx = canvas.getContext("2d");
+  var rr = Math.ceil(30* Math.random());
+  var valueY = 920* Math.random();
+  if(valueY > 157){
+	   var rx = Math.ceil(1920* Math.random());
+     var ry = Math.ceil(valueY);
+  }
 
+  if(circlesCount < 4 && valueY > 157){
+    numberOfRefresh++;
+
+
+      circlesCount++;
+      circles.push({
+        radius : rr,
+        pointX : rx,
+        pointY : ry
+      });
+
+    console.log(circles.length);
+
+
+    clear();
+
+    switch(currentKey){
+      case "W":
+         ctx.drawImage(playerBack, playerX, playerY,175,175);
+         break;
+      case "A":
+         ctx.drawImage(playerLeft, playerX, playerY,175,175);
+         break;
+       case "D":
+         ctx.drawImage(playerRight, playerX, playerY,175,175);
+         break;
+      case "S":
+         ctx.drawImage(playerFace, playerX, playerY,175,175);
+         break;
+    }
+
+    for(var i=0 ; i < circles.length; i++){
+      var currentCircle = circles[i];
+      drawCircle(currentCircle.pointX, currentCircle.pointY, currentCircle.radius);
+    }
+  }else{
+    clear();
+    circlesCount = 0;
+    circles = [];
+
+    switch(currentKey){
+      case "W":
+         ctx.drawImage(playerBack, playerX, playerY,175,175);
+         break;
+      case "A":
+         ctx.drawImage(playerLeft, playerX, playerY,175,175);
+         break;
+       case "D":
+         ctx.drawImage(playerRight, playerX, playerY,175,175);
+         break;
+      case "S":
+         ctx.drawImage(playerFace, playerX, playerY,175,175);
+         break;
+    }
+
+  }
+
+}
+
+function drawCircle(rx,ry,rr){
+  var myColors  =["black"];
+  var colorPicker = Math.ceil(4* Math.random() -1);
+	ctx.fillStyle = "#E2C39D";
+	ctx.fill();
+  ctx.strokeStyle = myColors[colorPicker];
+  ctx.beginPath();
+  ctx.arc(rx,ry,rr,0,Math.PI,true);
+  ctx.stroke();
+  ctx.closePath();
+}
+
+function init() {
     canvas.width = document.body.clientWidth; //document.width is obsolete
     canvas.height = document.body.clientHeight; //document.height is obsolete
 
     canvas.style.backgroundImage = "url('images/beach.jpg')";
     ctx.drawImage(playerFace, playerX, playerY,175,175);
     ctx.fillStyle = "#ff0000";
-    // ctx.translate(0,100);
-    // ctx.rotate( (Math.PI / 180) * -6);
-    // ctx.translate(-(0/2),-(140/2));
-    // ctx.fillRect(0,140, 1375, 1);
-    // ctx.rotate( (Math.PI / 180) * 6);
     ctx.translate(0,0);
 }
 
@@ -80,17 +160,17 @@ function onKeyDown(event){
         playerX += playerSpeed;
       }
         clear();
-        ctx.drawImage(playerLeft, playerX, playerY,175,175);
+        currentKey = "A";
       break;
     case "KeyD":
       playerX += playerSpeed;
-      console.log(playerY);
       if(checkCollision()){
         alert("You can't move ahead");
         playerX -= playerSpeed;
       }
       clear();
-      ctx.drawImage(playerRight, playerX, playerY,175,175);
+      currentKey = "D";
+
       break;
     case "KeyW":
       playerY -= playerSpeed;
@@ -99,7 +179,8 @@ function onKeyDown(event){
         playerY += playerSpeed;
       }
       clear();
-      ctx.drawImage(playerBack, playerX, playerY,175,175);
+      currentKey = "W";
+
       break;
     case "KeyS":
       playerY += playerSpeed;
@@ -108,7 +189,7 @@ function onKeyDown(event){
         playerY -= playerSpeed;
       }
       clear();
-      ctx.drawImage(playerFace, playerX, playerY,175,175);
+      currentKey = "S";
       break;
     default:
       alert("Only W, A, S, D can be pressed");
