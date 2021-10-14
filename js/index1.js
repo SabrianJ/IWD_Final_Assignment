@@ -32,45 +32,51 @@ function randomize(){
      var ry = Math.ceil(valueY);
   }
 
-  if(circlesCount < 4 && valueY > 157){
+  if(numberOfRefresh < 500){
     numberOfRefresh++;
 
 
-      circlesCount++;
-      circles.push({
-        radius : rr,
-        pointX : rx,
-        pointY : ry
-      });
+      console.log("Number" + numberOfRefresh);
 
-    console.log(circles.length);
-
+if(valueY > 157){
+  if(circlesCount < 4){
+    circlesCount++;
+    circles.push({
+      radius : rr,
+      pointX : rx,
+      pointY : ry
+    });
+  }
+}
 
     clear();
 
-    switch(currentKey){
-      case "W":
-         ctx.drawImage(playerBack, playerX, playerY,175,175);
-         break;
-      case "A":
-         ctx.drawImage(playerLeft, playerX, playerY,175,175);
-         break;
-       case "D":
-         ctx.drawImage(playerRight, playerX, playerY,175,175);
-         break;
-      case "S":
-         ctx.drawImage(playerFace, playerX, playerY,175,175);
-         break;
-    }
+  for(var i=0 ; i < circles.length; i++){
+    var currentCircle = circles[i];
+    drawCircle(currentCircle.pointX, currentCircle.pointY, currentCircle.radius);
+  }
 
-    for(var i=0 ; i < circles.length; i++){
-      var currentCircle = circles[i];
-      drawCircle(currentCircle.pointX, currentCircle.pointY, currentCircle.radius);
-    }
+  switch(currentKey){
+    case "W":
+       ctx.drawImage(playerBack, playerX, playerY,175,175);
+       break;
+    case "A":
+       ctx.drawImage(playerLeft, playerX, playerY,175,175);
+       break;
+     case "D":
+       ctx.drawImage(playerRight, playerX, playerY,175,175);
+       break;
+    case "S":
+       ctx.drawImage(playerFace, playerX, playerY,175,175);
+       break;
+  }
+
   }else{
+    console.log("reset");
     clear();
     circlesCount = 0;
     circles = [];
+    numberOfRefresh = 0;
 
     switch(currentKey){
       case "W":
@@ -159,7 +165,6 @@ function onKeyDown(event){
         alert("You can't move ahead");
         playerX += playerSpeed;
       }
-        clear();
         currentKey = "A";
       break;
     case "KeyD":
@@ -168,7 +173,6 @@ function onKeyDown(event){
         alert("You can't move ahead");
         playerX -= playerSpeed;
       }
-      clear();
       currentKey = "D";
 
       break;
@@ -178,7 +182,6 @@ function onKeyDown(event){
         alert("You can't move ahead");
         playerY += playerSpeed;
       }
-      clear();
       currentKey = "W";
 
       break;
@@ -188,7 +191,6 @@ function onKeyDown(event){
         alert("You can't move ahead");
         playerY -= playerSpeed;
       }
-      clear();
       currentKey = "S";
       break;
     default:
