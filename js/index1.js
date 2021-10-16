@@ -13,6 +13,8 @@ var currentKey ="W";
 var circles = [];
 var circlesCount = 0;
 var numberOfRefresh = 0;
+var score = 0;
+var touch = false;
 
 window.onload = setInterval(randomize,1);
 window.onload = init;
@@ -25,6 +27,16 @@ function clear(){
 function randomize(){
   canvas = document.getElementById("game");
   ctx = canvas.getContext("2d");
+
+  clear();
+
+  var myColors  =["black"];
+  var colorPicker = Math.ceil(4* Math.random() -1);
+  ctx.strokeStyle = "#000000";
+  ctx.font = "20px Arial";
+  ctx.strokeText("Score : " + score, 5, 25);
+  ctx.closePath();
+
   var rr = Math.ceil(30* Math.random());
   var valueY = 920* Math.random();
   if(valueY > 157){
@@ -49,25 +61,172 @@ if(valueY > 157){
   }
 }
 
-    clear();
+
 
   for(var i=0 ; i < circles.length; i++){
     var currentCircle = circles[i];
     drawCircle(currentCircle.pointX, currentCircle.pointY, currentCircle.radius);
   }
 
+
+
   switch(currentKey){
     case "W":
        ctx.drawImage(playerBack, playerX, playerY,175,175);
+       ctx.strokeStyle = '#ff5733';
+       ctx.strokeRect(playerX+60, playerY+15, 55, 155);
+
+       touch = false;
+
+         for(var i=0 ; i < circles.length; i++){
+           var currentCircle = circles[i];
+
+           for(var circleXStarting = currentCircle.pointX - currentCircle.radius; circleXStarting < (currentCircle.pointX + currentCircle.radius); circleXStarting++){
+             if(touch){
+               break;
+             }
+
+             for(var circleYStarting = currentCircle.pointY - currentCircle.radius; circleYStarting < currentCircle.pointY; circleYStarting++){
+               if(touch){
+                 break;
+               }
+               for(var playerXStarting = playerX+60; playerXStarting < playerX + 60 + 55; playerXStarting++){
+                 if(touch){
+                   break;
+                 }
+
+                 if(playerXStarting == circleXStarting && playerY+170 == circleYStarting){
+                   score++;
+                   touch = true;
+                   circles.splice(i,1);
+                   break;
+                 }
+               }
+             }
+           }
+         }
        break;
     case "A":
        ctx.drawImage(playerLeft, playerX, playerY,175,175);
+       ctx.strokeStyle = '#ff5733';
+       ctx.strokeRect(playerX+63, playerY+150, 40, 20);
+
+       touch = false;
+
+       for(var i=0 ; i < circles.length; i++){
+         var currentCircle = circles[i];
+
+         for(var circleXStarting = currentCircle.pointX - currentCircle.radius; circleXStarting < (currentCircle.pointX + currentCircle.radius); circleXStarting++){
+           if(touch){
+             break;
+           }
+
+           for(var circleYStarting = currentCircle.pointY - currentCircle.radius; circleYStarting < currentCircle.pointY; circleYStarting++){
+             if(touch){
+               break;
+             }
+
+             for(var playerXStarting = playerX + 63; playerXStarting < playerX + 63 + 40; playerXStarting++){
+               if(touch){
+                 break;
+               }
+
+               for(var playerYStarting = playerY + 150; playerYStarting < playerY + 150 + 20; playerYStarting++){
+                 if(touch){
+                   break;
+                 }
+
+                 if(playerXStarting == circleXStarting && playerYStarting == circleYStarting){
+                   score++;
+                   touch = true;
+                   circles.splice(i,1);
+                   break;
+                 }
+               }
+             }
+           }
+         }
+       }
+
        break;
      case "D":
        ctx.drawImage(playerRight, playerX, playerY,175,175);
+       ctx.strokeStyle = '#ff5733';
+       ctx.strokeRect(playerX+73, playerY+150, 35, 20);
+
+       touch = false;
+
+       for(var i=0 ; i < circles.length; i++){
+         var currentCircle = circles[i];
+
+         for(var circleXStarting = currentCircle.pointX - currentCircle.radius; circleXStarting < (currentCircle.pointX + currentCircle.radius); circleXStarting++){
+           if(touch){
+             break;
+           }
+
+           for(var circleYStarting = currentCircle.pointY - currentCircle.radius; circleYStarting < currentCircle.pointY; circleYStarting++){
+             if(touch){
+               break;
+             }
+
+             for(var playerXStarting = playerX + 73; playerXStarting < playerX + 73 + 35; playerXStarting++){
+               if(touch){
+                 break;
+               }
+
+               for(var playerYStarting = playerY + 150; playerYStarting < playerY + 150 + 20; playerYStarting++){
+                 if(touch){
+                   break;
+                 }
+
+                 if(circleXStarting == playerXStarting && circleYStarting == playerYStarting){
+                   score++;
+                   touch = true;
+                   circles.splice(i,1);
+                   break;
+                 }
+               }
+             }
+           }
+         }
+       }
+
        break;
     case "S":
        ctx.drawImage(playerFace, playerX, playerY,175,175);
+       ctx.strokeStyle = '#ff5733';
+       ctx.strokeRect(playerX+53, playerY+12, 62, 158);
+
+       touch = false;
+
+       for(var i=0 ; i < circles.length; i++){
+         var currentCircle = circles[i];
+
+         for(var circleXStarting = currentCircle.pointX - currentCircle.radius; circleXStarting < (currentCircle.pointX + currentCircle.radius); circleXStarting++){
+           if(touch){
+             break;
+           }
+
+           for(var circleYStarting = currentCircle.pointY - currentCircle.radius; circleYStarting < currentCircle.pointY; circleYStarting++){
+             if(touch){
+               break;
+             }
+
+             for(var playerXStarting= playerX+53; playerXStarting < playerX + 53 + 62; playerXStarting++){
+               if(touch){
+                 break;
+               }
+
+               if(playerXStarting == circleXStarting && playerY + 170 == circleYStarting){
+                 score++;
+                 touch = true;
+                 circles.splice(i,1);
+                 break;
+               }
+             }
+           }
+         }
+       }
        break;
   }
 
@@ -92,9 +251,7 @@ if(valueY > 157){
          ctx.drawImage(playerFace, playerX, playerY,175,175);
          break;
     }
-
   }
-
 }
 
 function drawCircle(rx,ry,rr){
