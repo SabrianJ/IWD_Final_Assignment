@@ -16,6 +16,26 @@ var numberOfRefresh = 0;
 var score = 0;
 var touch = false;
 
+var timerRestart = true;
+ var seconds = 10;
+
+
+var x = setInterval(function(){
+
+  if(timerRestart){
+    seconds = 10;
+    timerRestart = false;
+  }else{
+    seconds--;
+  }
+
+
+  if (seconds < 0) {
+    timerRestart = true;
+
+  }
+}, 1000);
+
 window.onload = setInterval(randomize,1);
 window.onload = init;
 window.onkeydown = onKeyDown;
@@ -35,26 +55,44 @@ function randomize(){
   ctx.strokeStyle = "#000000";
   ctx.font = "20px Arial";
   ctx.strokeText("Score : " + score, 5, 25);
+	ctx.strokeText("Time Left: " + seconds, 105,25);
+	if(seconds == 0)
+		{
+			document.getElementById('toggler').style.visibility = 'visible';
+			document.getElementById('settings12').style.visibility = 'visible';
+			document.getElementById('background').style.visibility = 'visible';
+			document.getElementById('game').style.visibility = 'hidden';
+			document.getElementById('playerFace').style.visibility = 'hidden';
+			document.getElementById('playerBack').style.visibility = 'hidden';
+			document.getElementById('playerLeft').style.visibility = 'hidden';
+			document.getElementById('playerRight').style.visibility = 'hidden';
+		}
   ctx.closePath();
 
-  var rr = Math.ceil(30* Math.random());
+	var valueX = 2220*Math.random();
   var valueY = 920* Math.random();
   if(valueY > 157){
 	   var rx = Math.ceil(1920* Math.random());
      var ry = Math.ceil(valueY);
   }
 
-  if(numberOfRefresh < 500){
+  if(numberOfRefresh < 100){
     numberOfRefresh++;
 
 
-      console.log("Number" + numberOfRefresh);
-
-if(valueY > 157){
-  if(circlesCount < 4){
+if(valueY > 357 && valueX > 800){
+  if(circlesCount < 5){
     circlesCount++;
+
+    // console.log(rx);
+    // circles.push({
+    //   radius : 30,
+    //   pointX : 1920,
+    //   pointY : 580
+    // });
+
     circles.push({
-      radius : rr,
+      radius : 30,
       pointX : rx,
       pointY : ry
     });
@@ -68,170 +106,31 @@ if(valueY > 157){
     drawCircle(currentCircle.pointX, currentCircle.pointY, currentCircle.radius);
   }
 
-
-
   switch(currentKey){
     case "W":
        ctx.drawImage(playerBack, playerX, playerY,175,175);
        ctx.strokeStyle = '#ff5733';
-       ctx.strokeRect(playerX+60, playerY+15, 55, 155);
-
-       touch = false;
-
-         for(var i=0 ; i < circles.length; i++){
-           var currentCircle = circles[i];
-
-           for(var circleXStarting = currentCircle.pointX - currentCircle.radius; circleXStarting < (currentCircle.pointX + currentCircle.radius); circleXStarting++){
-             if(touch){
-               break;
-             }
-
-             for(var circleYStarting = currentCircle.pointY - currentCircle.radius; circleYStarting < currentCircle.pointY; circleYStarting++){
-               if(touch){
-                 break;
-               }
-               for(var playerXStarting = playerX+60; playerXStarting < playerX + 60 + 55; playerXStarting++){
-                 if(touch){
-                   break;
-                 }
-
-                 if(playerXStarting == circleXStarting && playerY+170 == circleYStarting){
-                   score++;
-                   touch = true;
-                   circles.splice(i,1);
-                   break;
-                 }
-               }
-             }
-           }
-         }
+       ctx.strokeRect(playerX+60, playerY+157, 55, 13);
        break;
     case "A":
        ctx.drawImage(playerLeft, playerX, playerY,175,175);
        ctx.strokeStyle = '#ff5733';
        ctx.strokeRect(playerX+63, playerY+150, 40, 20);
-
-       touch = false;
-
-       for(var i=0 ; i < circles.length; i++){
-         var currentCircle = circles[i];
-
-         for(var circleXStarting = currentCircle.pointX - currentCircle.radius; circleXStarting < (currentCircle.pointX + currentCircle.radius); circleXStarting++){
-           if(touch){
-             break;
-           }
-
-           for(var circleYStarting = currentCircle.pointY - currentCircle.radius; circleYStarting < currentCircle.pointY; circleYStarting++){
-             if(touch){
-               break;
-             }
-
-             for(var playerXStarting = playerX + 63; playerXStarting < playerX + 63 + 40; playerXStarting++){
-               if(touch){
-                 break;
-               }
-
-               for(var playerYStarting = playerY + 150; playerYStarting < playerY + 150 + 20; playerYStarting++){
-                 if(touch){
-                   break;
-                 }
-
-                 if(playerXStarting == circleXStarting && playerYStarting == circleYStarting){
-                   score++;
-                   touch = true;
-                   circles.splice(i,1);
-                   break;
-                 }
-               }
-             }
-           }
-         }
-       }
-
        break;
      case "D":
        ctx.drawImage(playerRight, playerX, playerY,175,175);
        ctx.strokeStyle = '#ff5733';
        ctx.strokeRect(playerX+73, playerY+150, 35, 20);
-
-       touch = false;
-
-       for(var i=0 ; i < circles.length; i++){
-         var currentCircle = circles[i];
-
-         for(var circleXStarting = currentCircle.pointX - currentCircle.radius; circleXStarting < (currentCircle.pointX + currentCircle.radius); circleXStarting++){
-           if(touch){
-             break;
-           }
-
-           for(var circleYStarting = currentCircle.pointY - currentCircle.radius; circleYStarting < currentCircle.pointY; circleYStarting++){
-             if(touch){
-               break;
-             }
-
-             for(var playerXStarting = playerX + 73; playerXStarting < playerX + 73 + 35; playerXStarting++){
-               if(touch){
-                 break;
-               }
-
-               for(var playerYStarting = playerY + 150; playerYStarting < playerY + 150 + 20; playerYStarting++){
-                 if(touch){
-                   break;
-                 }
-
-                 if(circleXStarting == playerXStarting && circleYStarting == playerYStarting){
-                   score++;
-                   touch = true;
-                   circles.splice(i,1);
-                   break;
-                 }
-               }
-             }
-           }
-         }
-       }
-
        break;
     case "S":
        ctx.drawImage(playerFace, playerX, playerY,175,175);
        ctx.strokeStyle = '#ff5733';
-       ctx.strokeRect(playerX+53, playerY+12, 62, 158);
-
-       touch = false;
-
-       for(var i=0 ; i < circles.length; i++){
-         var currentCircle = circles[i];
-
-         for(var circleXStarting = currentCircle.pointX - currentCircle.radius; circleXStarting < (currentCircle.pointX + currentCircle.radius); circleXStarting++){
-           if(touch){
-             break;
-           }
-
-           for(var circleYStarting = currentCircle.pointY - currentCircle.radius; circleYStarting < currentCircle.pointY; circleYStarting++){
-             if(touch){
-               break;
-             }
-
-             for(var playerXStarting= playerX+53; playerXStarting < playerX + 53 + 62; playerXStarting++){
-               if(touch){
-                 break;
-               }
-
-               if(playerXStarting == circleXStarting && playerY + 170 == circleYStarting){
-                 score++;
-                 touch = true;
-                 circles.splice(i,1);
-                 break;
-               }
-             }
-           }
-         }
-       }
+       ctx.strokeRect(playerX+53, playerY+152, 62, 18);
        break;
   }
 
   }else{
-    console.log("reset");
+    // console.log("reset");
     clear();
     circlesCount = 0;
     circles = [];
@@ -282,15 +181,15 @@ function init() {
 //         a.y + a.height > b.y) return true;
 
 function checkCollision(){
-  if(playerY <= -59){
+  if(playerY <= -40){
     return true;
   }
 
-  if(playerX <= -57){
+  if(playerX <= -60){
     return true;
   }
 
-  if(playerY >= 410){
+  if(playerY >= 550){
     return true;
   }
 
@@ -299,7 +198,7 @@ function checkCollision(){
   }
 
   var stepCount = 0;
-  for(var i=81; i >= -52 ; i-=7){
+  for(var i=137; i >= -38 ; i-=7){
     if(playerY == i && playerY > 4 && playerX < (40 * stepCount)){
       return true;
     }else if(playerY == i && playerY <= 4 && playerX < (50 * stepCount)){
@@ -310,6 +209,7 @@ function checkCollision(){
     stepCount++;
   }
 }
+
 
 
 
@@ -350,6 +250,9 @@ function onKeyDown(event){
       }
       currentKey = "S";
       break;
+    case "Space":
+      catchWorm();
+      break;
     default:
       alert("Only W, A, S, D can be pressed");
 
@@ -357,11 +260,189 @@ function onKeyDown(event){
    event.preventDefault();
 }
 
+function playSuccessSound(){
+  var success = new Audio('Success.mp3');
+  success.play();
+}
+
+function playFailSound(){
+  var fail = new Audio("Fail.mp3");
+  fail.play();
+}
+
 function getCursorPosition(canvas, event) {
     const rect = canvas.getBoundingClientRect()
     const x = event.clientX - rect.left
     const y = event.clientY - rect.top
     console.log("x: " + x + " y: " + y)
+}
+
+function catchWorm(){
+  switch(currentKey){
+    case "W":
+       touch = false;
+
+         for(var i=0 ; i < circles.length; i++){
+           var currentCircle = circles[i];
+
+           for(var circleXStarting = currentCircle.pointX - currentCircle.radius; circleXStarting < (currentCircle.pointX + currentCircle.radius); circleXStarting++){
+             if(touch){
+               break;
+             }
+
+             for(var circleYStarting = currentCircle.pointY - currentCircle.radius; circleYStarting < currentCircle.pointY; circleYStarting++){
+               if(touch){
+                 break;
+               }
+               for(var playerXStarting = playerX+60; playerXStarting < playerX + 60 + 55; playerXStarting++){
+                 for(var playerYStarting = playerY + 157; playerYStarting < playerY + 157 + 13; playerYStarting++){
+                   if(touch){
+                     break;
+                   }
+
+                   if(playerXStarting == circleXStarting && playerYStarting == circleYStarting){
+                     score++;
+                     touch = true;
+                     playSuccessSound();
+                     circles.splice(i,1);
+                     break;
+                   }
+                 }
+               }
+             }
+           }
+         }
+
+         if(!touch){
+           playFailSound();
+         }
+       break;
+    case "A":
+       touch = false;
+
+       for(var i=0 ; i < circles.length; i++){
+         var currentCircle = circles[i];
+
+         for(var circleXStarting = currentCircle.pointX - currentCircle.radius; circleXStarting < (currentCircle.pointX + currentCircle.radius); circleXStarting++){
+           if(touch){
+             break;
+           }
+
+           for(var circleYStarting = currentCircle.pointY - currentCircle.radius; circleYStarting < currentCircle.pointY; circleYStarting++){
+             if(touch){
+               break;
+             }
+
+             for(var playerXStarting = playerX + 63; playerXStarting < playerX + 63 + 40; playerXStarting++){
+               if(touch){
+                 break;
+               }
+
+               for(var playerYStarting = playerY + 150; playerYStarting < playerY + 150 + 20; playerYStarting++){
+                 if(touch){
+                   break;
+                 }
+
+                 if(playerXStarting == circleXStarting && playerYStarting == circleYStarting){
+                   score++;
+                   touch = true;
+                   playSuccessSound();
+                   circles.splice(i,1);
+                   break;
+                 }
+               }
+             }
+           }
+         }
+       }
+
+       if(!touch){
+         playFailSound();
+       }
+       break;
+     case "D":
+       touch = false;
+
+       for(var i=0 ; i < circles.length; i++){
+         var currentCircle = circles[i];
+
+         for(var circleXStarting = currentCircle.pointX - currentCircle.radius; circleXStarting < (currentCircle.pointX + currentCircle.radius); circleXStarting++){
+           if(touch){
+             break;
+           }
+
+           for(var circleYStarting = currentCircle.pointY - currentCircle.radius; circleYStarting < currentCircle.pointY; circleYStarting++){
+             if(touch){
+               break;
+             }
+
+             for(var playerXStarting = playerX + 73; playerXStarting < playerX + 73 + 35; playerXStarting++){
+               if(touch){
+                 break;
+               }
+
+               for(var playerYStarting = playerY + 150; playerYStarting < playerY + 150 + 20; playerYStarting++){
+                 if(touch){
+                   break;
+                 }
+
+                 if(circleXStarting == playerXStarting && circleYStarting == playerYStarting){
+                   score++;
+                   touch = true;
+                   playSuccessSound();
+                   circles.splice(i,1);
+                   break;
+                 }
+               }
+             }
+           }
+         }
+       }
+
+       if(!touch){
+         playFailSound();
+       }
+       break;
+    case "S":
+       touch = false;
+
+       for(var i=0 ; i < circles.length; i++){
+         var currentCircle = circles[i];
+
+         for(var circleXStarting = currentCircle.pointX - currentCircle.radius; circleXStarting < (currentCircle.pointX + currentCircle.radius); circleXStarting++){
+           if(touch){
+             break;
+           }
+
+           for(var circleYStarting = currentCircle.pointY - currentCircle.radius; circleYStarting < currentCircle.pointY; circleYStarting++){
+             if(touch){
+               break;
+             }
+
+             for(var playerXStarting= playerX+53; playerXStarting < playerX + 53 + 62; playerXStarting++){
+               for(var playerYStarting= playerY + 152; playerYStarting < playerY + 152 + 18; playerYStarting++){
+                 if(touch){
+                   break;
+                 }
+
+                 if(playerXStarting == circleXStarting && playerYStarting == circleYStarting){
+                   score++;
+                   touch = true;
+                   playSuccessSound();
+                   circles.splice(i,1);
+                   break;
+                 }
+               }
+             }
+           }
+         }
+       }
+
+       if(!touch){
+         playFailSound();
+       }
+       break;
+  }
 }
 
 canvas.addEventListener('mousedown', function(e) {
