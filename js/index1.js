@@ -15,25 +15,53 @@ var circlesCount = 0;
 var numberOfRefresh = 0;
 var score = 0;
 var touch = false;
-
+var hidden = false;
+var isPlaying = false;
 var timerRestart = true;
- var seconds = 10;
+var countdown = 60;
+var seconds;
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("settings12");
+var span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
 
 
 var x = setInterval(function(){
 
-  if(timerRestart){
-    seconds = 10;
-    timerRestart = false;
-  }else{
-    seconds--;
+  countdown = document.getElementById("time").value * 60;
+
+  if(isPlaying){
+    if(timerRestart){
+      seconds = countdown;
+      timerRestart = false;
+    }else{
+
+      seconds--;
+
+      if (seconds < 0) {
+        seconds = countdown;
+        timerRestart = true;
+        isPlaying = false;
+      }
+    }
   }
 
 
-  if (seconds < 0) {
-    timerRestart = true;
-
-  }
 }, 1000);
 
 window.onload = setInterval(randomize,1);
@@ -42,6 +70,35 @@ window.onkeydown = onKeyDown;
 
 function clear(){
   ctx.clearRect(0,0, canvas.width, canvas.height);
+}
+
+function startGame() {
+    hidden = !hidden;
+    isPlaying = true;
+
+document.getElementById('startgame').style.visibility = 'hidden';
+document.getElementById('background').style.visibility = 'hidden';
+document.getElementById('settings12').style.visibility = 'hidden';
+document.getElementById('game').style.visibility = 'visible';
+document.getElementById('playerFace').style.visibility = 'visible';
+document.getElementById('playerBack').style.visibility = 'visible';
+document.getElementById('playerLeft').style.visibility = 'visible';
+document.getElementById('playerRight').style.visibility = 'visible';
+}
+
+function restartGame() {
+    hidden = !hidden;
+    isPlaying = true;
+
+    document.getElementById('startgame').style.visibility = 'hidden';
+    document.getElementById('toggler').style.visibility = 'hidden';
+    document.getElementById('background').style.visibility = 'hidden';
+document.getElementById('settings12').style.visibility = 'hidden';
+document.getElementById('game').style.visibility = 'visible';
+document.getElementById('playerFace').style.visibility = 'visible';
+document.getElementById('playerBack').style.visibility = 'visible';
+document.getElementById('playerLeft').style.visibility = 'visible';
+document.getElementById('playerRight').style.visibility = 'visible';
 }
 
 function randomize(){
@@ -55,9 +112,13 @@ function randomize(){
   ctx.strokeStyle = "#000000";
   ctx.font = "20px Arial";
   ctx.strokeText("Score : " + score, 5, 25);
-	ctx.strokeText("Time Left: " + seconds, 105,25);
+  if(seconds != null){
+    	ctx.strokeText("Time Left: " + seconds, 105,25);
+  }
+
 	if(seconds == 0)
 		{
+      document.getElementById('displayScore').innerHTML = "Best Score : " + score;
 			document.getElementById('toggler').style.visibility = 'visible';
 			document.getElementById('settings12').style.visibility = 'visible';
 			document.getElementById('background').style.visibility = 'visible';
@@ -109,23 +170,15 @@ if(valueY > 357 && valueX > 800){
   switch(currentKey){
     case "W":
        ctx.drawImage(playerBack, playerX, playerY,175,175);
-       ctx.strokeStyle = '#ff5733';
-       ctx.strokeRect(playerX+60, playerY+157, 55, 13);
        break;
     case "A":
        ctx.drawImage(playerLeft, playerX, playerY,175,175);
-       ctx.strokeStyle = '#ff5733';
-       ctx.strokeRect(playerX+63, playerY+150, 40, 20);
        break;
      case "D":
        ctx.drawImage(playerRight, playerX, playerY,175,175);
-       ctx.strokeStyle = '#ff5733';
-       ctx.strokeRect(playerX+73, playerY+150, 35, 20);
        break;
     case "S":
        ctx.drawImage(playerFace, playerX, playerY,175,175);
-       ctx.strokeStyle = '#ff5733';
-       ctx.strokeRect(playerX+53, playerY+152, 62, 18);
        break;
   }
 
