@@ -1,45 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <muriwai>
-  <room id="1">
-    <type>superior</type>
-    <capacity>2</capacity>
-    <status>full</status>
-    <cost>150</cost>
-    <imagepath>100</imagepath>
-  </room>
-  <room id="2">
-    <type>deluxe</type>
-    <capacity>4</capacity>
-    <status>vacant</status>
-    <cost>250</cost>
-    <imagepath>200</imagepath>
-  </room>
-  <room id="3">
-    <type>signature</type>
-    <capacity>5</capacity>
-    <status>full</status>
-    <cost>350</cost>
-    <imagepath>300</imagepath>
-  </room>
-  <room id="4">
-    <type>couple</type>
-    <capacity>2</capacity>
-    <status>full</status>
-    <cost>250</cost>
-    <imagepath>400</imagepath>
-  </room>
-  <room id="5">
-    <type>executive</type>
-    <capacity>4</capacity>
-    <status>vacant</status>
-    <cost>400</cost>
-    <imagepath>500</imagepath>
-  </room>
-  <room id="6">
-    <type>presidential</type>
-    <capacity>5</capacity>
-    <status>vacant</status>
-    <cost>500</cost>
-    <imagepath>600</imagepath>
-  </room>
-</muriwai>
+    <room id='1'>"+
+      <type>Presidential</type>
+      <capacity>8</capacity>
+      <status>vacant</status>
+      <cost>500</cost>
+      <imagepath>123, 275, 105, 213</imagepath>
+    </room>
+    <room id='2'>
+      <type>Executive</type>
+      <capacity>6</capacity>
+      <status>vacant</status>
+      <cost>400</cost>
+      <imagepath>120, 172, 113, 80</imagepath>
+    </room>
+    <room id='3'>
+      <type>Executive</type>
+      <capacity>6</capacity>
+      <status>vacant</status>
+      <cost>400</cost>
+      <imagepath>120, 67, 113, 85</imagepath>
+    </room>
+    <room id='4'>
+      <type>Couple</type>
+      <capacity>2</capacity>
+      <status>full</status>
+      <cost>250</cost>
+      <imagepath>353, 67, 48, 110</imagepath>
+    </room>
+    <room id='5'>
+      <type>Couple</type>
+      <capacity>2</capacity>
+      <status>full</status>
+      <cost>250</cost>
+      <imagepath>413, 67, 52, 110</imagepath>
+    </room>
+    <room id='6'>
+      <type>Couple</type>
+      <capacity>2</capacity>
+      <status>full</status>
+      <cost>250</cost>
+      <imagepath>475, 67, 48, 110</imagepath>
+    </room>
+    <room id='7'>
+      <type>Couple</type>
+      <capacity>2</capacity>
+      <status>vacant</status>
+      <cost>250</cost>
+      <imagepath>533, 67, 48, 110</imagepath>
+    </room>
+    <room id='8'>
+      <type>Superior</type>
+      <capacity>2</capacity>
+      <status>vacant</status>
+      <cost>150</cost>
+      <imagepath>590, 67, 48, 113</imagepath>
+    </room>
+    <room id='9'>
+      <type>Deluxe</type>
+      <capacity>4</capacity>
+      <status>vacant</status>
+      <cost>250</cost>
+      <imagepath>550, 228, 85, 110</imagepath>
+      </room>
+    <room id='10'>
+      <type>Signature</type>
+      <capacity>4</capacity>
+      <status>vacant</status>
+      <cost>350</cost>
+      <imagepath>550, 350, 85, 120</imagepath>
+    </room>
+  </muriwai>

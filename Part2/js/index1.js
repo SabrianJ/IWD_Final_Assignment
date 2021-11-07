@@ -137,21 +137,13 @@ function randomize(){
      var ry = Math.ceil(valueY);
   }
 
-  if(numberOfRefresh < 100){
+  if(numberOfRefresh < 500){
     numberOfRefresh++;
 
 
 if(valueY > 357 && valueX > 800){
   if(circlesCount < 5){
     circlesCount++;
-
-    // console.log(rx);
-    // circles.push({
-    //   radius : 30,
-    //   pointX : 1920,
-    //   pointY : 580
-    // });
-
     circles.push({
       radius : 30,
       pointX : rx,
@@ -228,11 +220,6 @@ function init() {
     ctx.translate(0,0);
 }
 
-// if (a.x < b.x + b.width &&
-//         a.x + a.width > b.x &&
-//         a.y < b.y + b.height &&
-//         a.y + a.height > b.y) return true;
-
 function checkCollision(){
   if(playerY <= -40){
     return true;
@@ -242,7 +229,7 @@ function checkCollision(){
     return true;
   }
 
-  if(playerY >= 550){
+  if(playerY >= 625){
     return true;
   }
 

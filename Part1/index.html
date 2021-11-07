@@ -47,6 +47,7 @@
                                         <li><a href="rooms.html">rooms</a></li>
                                         <li><a href="about.html">About</a></li>
                                         <li><a href="contact.html">Contact</a></li>
+                                        <li><a href="../Part2/index.html">Game</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -476,7 +477,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                     </div>
                                     <div class="col-xl-6">
                                       <label for="checkOut">Check out: </label>
-                                        <input type="date" id="checkOut" class="checkOut" placeholder="Check out date">
+                                        <input type="date" id="checkOut" class="checkOut" onchange="checkoutChange()" placeholder="Check out date">
                                     </div>
                                     <div class="col-xl-6">
                                         <select class="form-select wide" id="default-select" onchange="adultCapacity(event)" class="">
@@ -485,6 +486,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                             <option value="3">3</option>
                                             <option value="4">4</option>
                                             <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
                                         </select>
                                     </div>
                                     <div class="col-xl-6">
@@ -500,9 +504,23 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                     </div>
                                 </div>
                             </form>
-                            <div style="padding-top: 60px; display:flex; justify-content: center;" class="bookingSummary" id="bookingSummary">
-                                <canvas id="allocation" height="671" width="789" style="display:none;justify-content: center;background: url('img/roomAllocation.jpg');"></canvas>
+                            <div id="summary">
+                              <div style="padding-top: 60px; display:flex; justify-content: center;" class="roomSelection" id="roomSelecttion">
+                                  <canvas id="allocation" height="671" width="789" onmousemove="canvasMouseMove(event)" onclick="canvasMouseClick(event)" style="justify-content: center;background: url('img/roomAllocation.jpg');"></canvas>
+                              </div>
+                              <div>
+                                <table width = 100%>
+                                  <tr>
+                                    <td><div id="booking" align="left"></div></td>
+                                    <td><div id="roomImage" align="center"></div></td>
+                                  </tr>
+                                </table>
+
+
+                              </div>
+
                             </div>
+
                         </div>
                     </div>
             </form>
