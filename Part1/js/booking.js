@@ -11,87 +11,77 @@ var adult = 1;
 var children = 0;
 var rooms = [];
 var parser, xmlDoc;
-var xml = "<muriwai>"+"<room>"+
-"<id>1</id>"+
- "<type>Presidential</type>"
- + "<capacity>8</capacity>" +
-" <status>vacant</status>" +
- "<cost>500</cost>"+
-" <imagepath>123, 275, 105, 213</imagepath>"+
-" </room>"+
-"<room>"+
-"<id>2</id>"+
- "<type>Executive</type>"+
- "<capacity>6</capacity>"+
- "<status>vacant</status>"+
- "<cost>400</cost>"+
-"<imagepath>120, 172, 113, 80</imagepath>"+
- "</room>"+
-"<room>"+
-"<id>3</id>"+
- "<type>Executive</type>"+
-" <capacity>6</capacity>"+
-" <status>vacant</status>"+
- "<cost>400</cost>"+
- "<imagepath>120, 67, 113, 85</imagepath>"+
-" </room>"+
-"<room>"+
-"<id>4</id>"+
- "<type>Couple</type>"+
-" <capacity>2</capacity>"+
- "<status>full</status>"+
- "<cost>250</cost>"+
- "<imagepath>353, 67, 48, 110</imagepath>"+
- "</room>"+
-"<room>"+
-"<id>5</id>"+
-" <type>Couple</type>"+
- "<capacity>2</capacity>"+
- "<status>full</status>"+
-" <cost>250</cost>"+
- "<imagepath>413, 67, 52, 110</imagepath>"+
- "</room>"+
-"<room>"+
-"<id>6</id>"+
-" <type>Couple</type>"+
- "<capacity>2</capacity>"+
- "<status>full</status>"+
- "<cost>250</cost>"+
- "<imagepath>475, 67, 48, 110</imagepath>"+
- "</room>"+
- "<room>"+
- "<id>7</id>"+
- " <type>Couple</type>"+
-  "<capacity>2</capacity>"+
-  "<status>vacant</status>"+
-  "<cost>250</cost>"+
-  "<imagepath>533, 67, 48, 110</imagepath>"+
-  "</room>"+
-  "<room>"+
-  "<id>8</id>"+
-  " <type>Superior</type>"+
-   "<capacity>2</capacity>"+
-   "<status>vacant</status>"+
-   "<cost>150</cost>"+
-   "<imagepath>590, 67, 48, 113</imagepath>"+
-   "</room>"+
-   "<room>"+
-   "<id>9</id>"+
-   " <type>Deluxe</type>"+
-    "<capacity>4</capacity>"+
-    "<status>vacant</status>"+
-    "<cost>250</cost>"+
-    "<imagepath>550, 228, 85, 110</imagepath>"+
-    "</room>"+
-    "<room>"+
-    "<id>10</id>"+
-    " <type>Signature</type>"+
-     "<capacity>4</capacity>"+
-     "<status>vacant</status>"+
-     "<cost>350</cost>"+
-     "<imagepath>550, 350, 85, 120</imagepath>"+
-     "</room>"+
- "</muriwai>";
+// var xml = "<muriwai>"+"<room id='1'>"+
+//  "<type>Presidential</type>"
+//  + "<capacity>8</capacity>" +
+// " <status>vacant</status>" +
+//  "<cost>500</cost>"+
+// " <imagepath>123, 275, 105, 213</imagepath>"+
+// " </room>"+
+// "<room id='2'>"+
+//  "<type>Executive</type>"+
+//  "<capacity>6</capacity>"+
+//  "<status>vacant</status>"+
+//  "<cost>400</cost>"+
+// "<imagepath>120, 172, 113, 80</imagepath>"+
+//  "</room>"+
+// "<room id='3'>"+
+//  "<type>Executive</type>"+
+// " <capacity>6</capacity>"+
+// " <status>vacant</status>"+
+//  "<cost>400</cost>"+
+//  "<imagepath>120, 67, 113, 85</imagepath>"+
+// " </room>"+
+// "<room id='4'>"+
+//  "<type>Couple</type>"+
+// " <capacity>2</capacity>"+
+//  "<status>full</status>"+
+//  "<cost>250</cost>"+
+//  "<imagepath>353, 67, 48, 110</imagepath>"+
+//  "</room>"+
+// "<room id='5'>"+
+// " <type>Couple</type>"+
+//  "<capacity>2</capacity>"+
+//  "<status>full</status>"+
+// " <cost>250</cost>"+
+//  "<imagepath>413, 67, 52, 110</imagepath>"+
+//  "</room>"+
+// "<room id='6'>"+
+// " <type>Couple</type>"+
+//  "<capacity>2</capacity>"+
+//  "<status>full</status>"+
+//  "<cost>250</cost>"+
+//  "<imagepath>475, 67, 48, 110</imagepath>"+
+//  "</room>"+
+//  "<room id='7'>"+
+//  " <type>Couple</type>"+
+//   "<capacity>2</capacity>"+
+//   "<status>vacant</status>"+
+//   "<cost>250</cost>"+
+//   "<imagepath>533, 67, 48, 110</imagepath>"+
+//   "</room>"+
+//   "<room id='8'>"+
+//   " <type>Superior</type>"+
+//    "<capacity>2</capacity>"+
+//    "<status>vacant</status>"+
+//    "<cost>150</cost>"+
+//    "<imagepath>590, 67, 48, 113</imagepath>"+
+//    "</room>"+
+//    "<room id='9'>"+
+//    " <type>Deluxe</type>"+
+//     "<capacity>4</capacity>"+
+//     "<status>vacant</status>"+
+//     "<cost>250</cost>"+
+//     "<imagepath>550, 228, 85, 110</imagepath>"+
+//     "</room>"+
+//     "<room id='10'>"+
+//     " <type>Signature</type>"+
+//      "<capacity>4</capacity>"+
+//      "<status>vacant</status>"+
+//      "<cost>350</cost>"+
+//      "<imagepath>550, 350, 85, 120</imagepath>"+
+//      "</room>"+
+//  "</muriwai>";
 
 
 
@@ -104,14 +94,28 @@ function OnLoad(){
 }
 
 function readXML(){
-      parser = new DOMParser();
-      xmlDoc = parser.parseFromString(xml,"text/xml");
+      // parser = new DOMParser();
+      // xmlDoc = parser.parseFromString(xml,"text/xml");
+        if(typeof window.DOMParser != "undefined") {
+          xmlhttp=new XMLHttpRequest();
+          xmlhttp.open("GET","./room.xml",false);
+          if (xmlhttp.overrideMimeType){
+            xmlhttp.overrideMimeType('text/xml');
+          }
+          xmlhttp.send();
+          xmlDoc=xmlhttp.responseXML;
+        }
+        else{
+          xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+          xmlDoc.async="false";
+          xmlDoc.load("./room.xml");
+        }
 
       for(var i=0;i<xmlDoc.getElementsByTagName("type").length;i++){
         var imagePath = xmlDoc.getElementsByTagName("imagepath")[i].childNodes[0].nodeValue;
         var imagePathArray = imagePath.split(",").map(Number);
         var room = {
-          id: xmlDoc.getElementsByTagName("id")[i].childNodes[0].nodeValue,
+          id: xmlDoc.getElementsByTagName("room")[i].id,
           type: xmlDoc.getElementsByTagName("type")[i].childNodes[0].nodeValue,
           capacity : xmlDoc.getElementsByTagName("capacity")[i].childNodes[0].nodeValue,
           status: xmlDoc.getElementsByTagName("status")[i].childNodes[0].nodeValue,
@@ -240,7 +244,9 @@ function canvasMouseClick(e){
 }
 
 function confirmBooking(id){
-    rooms[id-1].status = "full";
+    xmlDoc.getElementsByTagName("status")[id-1].childNodes[0].nodeValue = "full";
+    var blob = new Blob([new XMLSerializer().serializeToString(xmlDoc.documentElement)], {type: "text/xml"});
+    saveAs(blob, "./room.xml");
 }
 
 function getMousePosition(x,y){
@@ -319,37 +325,7 @@ removeSummary();
 function checkAvailability(){
   var summary = document.getElementById("summary");
   summary.style.display = "block";
-
-
-
 }
-
-function makeXmlFromOb (ob, parent) {
-    // this is recursive to deal with multi level JSON objects
-    Object.keys(ob).forEach (function (d) {
-
-      // if the key is numeric, xml will fail, so rename array indices to value
-      var child = XmlService.createElement(isNaN(new Number(d)) ? d : 'element' );
-
-      // add new created element to the parent
-      parent.addContent (child);
-
-      // need to recurse if this is an object/array
-      if (typeof ob[d] === 'object' ) {
-
-        // the new parent is the newly created node
-        return makeXmlFromOb (ob[d] , child );
-      }
-      else {
-
-        // regular node, set the text to the value
-        child.setText(ob[d]);
-      }
-
-    });
-
-    return parent;
-	}
 
 function AdjustCheckOut(){
   var checkInDate = document.getElementById("checkIn").value;
