@@ -11,79 +11,6 @@ var adult = 1;
 var children = 0;
 var rooms = [];
 var parser, xmlDoc;
-// var xml = "<muriwai>"+"<room id='1'>"+
-//  "<type>Presidential</type>"
-//  + "<capacity>8</capacity>" +
-// " <status>vacant</status>" +
-//  "<cost>500</cost>"+
-// " <imagepath>123, 275, 105, 213</imagepath>"+
-// " </room>"+
-// "<room id='2'>"+
-//  "<type>Executive</type>"+
-//  "<capacity>6</capacity>"+
-//  "<status>vacant</status>"+
-//  "<cost>400</cost>"+
-// "<imagepath>120, 172, 113, 80</imagepath>"+
-//  "</room>"+
-// "<room id='3'>"+
-//  "<type>Executive</type>"+
-// " <capacity>6</capacity>"+
-// " <status>vacant</status>"+
-//  "<cost>400</cost>"+
-//  "<imagepath>120, 67, 113, 85</imagepath>"+
-// " </room>"+
-// "<room id='4'>"+
-//  "<type>Couple</type>"+
-// " <capacity>2</capacity>"+
-//  "<status>full</status>"+
-//  "<cost>250</cost>"+
-//  "<imagepath>353, 67, 48, 110</imagepath>"+
-//  "</room>"+
-// "<room id='5'>"+
-// " <type>Couple</type>"+
-//  "<capacity>2</capacity>"+
-//  "<status>full</status>"+
-// " <cost>250</cost>"+
-//  "<imagepath>413, 67, 52, 110</imagepath>"+
-//  "</room>"+
-// "<room id='6'>"+
-// " <type>Couple</type>"+
-//  "<capacity>2</capacity>"+
-//  "<status>full</status>"+
-//  "<cost>250</cost>"+
-//  "<imagepath>475, 67, 48, 110</imagepath>"+
-//  "</room>"+
-//  "<room id='7'>"+
-//  " <type>Couple</type>"+
-//   "<capacity>2</capacity>"+
-//   "<status>vacant</status>"+
-//   "<cost>250</cost>"+
-//   "<imagepath>533, 67, 48, 110</imagepath>"+
-//   "</room>"+
-//   "<room id='8'>"+
-//   " <type>Superior</type>"+
-//    "<capacity>2</capacity>"+
-//    "<status>vacant</status>"+
-//    "<cost>150</cost>"+
-//    "<imagepath>590, 67, 48, 113</imagepath>"+
-//    "</room>"+
-//    "<room id='9'>"+
-//    " <type>Deluxe</type>"+
-//     "<capacity>4</capacity>"+
-//     "<status>vacant</status>"+
-//     "<cost>250</cost>"+
-//     "<imagepath>550, 228, 85, 110</imagepath>"+
-//     "</room>"+
-//     "<room id='10'>"+
-//     " <type>Signature</type>"+
-//      "<capacity>4</capacity>"+
-//      "<status>vacant</status>"+
-//      "<cost>350</cost>"+
-//      "<imagepath>550, 350, 85, 120</imagepath>"+
-//      "</room>"+
-//  "</muriwai>";
-
-
 
 window.onload=OnLoad();
 
@@ -94,8 +21,6 @@ function OnLoad(){
 }
 
 function readXML(){
-      // parser = new DOMParser();
-      // xmlDoc = parser.parseFromString(xml,"text/xml");
         if(typeof window.DOMParser != "undefined") {
           xmlhttp=new XMLHttpRequest();
           xmlhttp.open("GET","./room.xml",false);
