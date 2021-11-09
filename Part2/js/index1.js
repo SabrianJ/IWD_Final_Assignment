@@ -73,6 +73,7 @@ function clear(){
 }
 
 function startGame() {
+  score = 0;
     hidden = !hidden;
     isPlaying = true;
 
@@ -87,6 +88,7 @@ document.getElementById('playerRight').style.visibility = 'visible';
 }
 
 function restartGame() {
+  score = 0;
     hidden = !hidden;
     isPlaying = true;
 
