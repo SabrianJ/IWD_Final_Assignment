@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/slicknav.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/booking.css">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 </head>
 
@@ -289,43 +290,66 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
     <!-- form itself end-->
-    <form id="test-form" class="white-popup-block mfp-hide">
-        <div class="popup_box ">
-                <div class="popup_inner">
-                    <h3>Check Availability</h3>
-                    <form action="#">
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <input id="datepicker" placeholder="Check in date">
+        <form id="test-form" class="white-popup-block mfp-hide">
+                <div class="popup_box ">
+                        <div class="popup_inner">
+                            <h3>Check Availability</h3>
+                            <form action="#">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                      <label for="checkIn">Check in: </label>
+                                        <input type="date" id="checkIn" onchange="AdjustCheckOut()" class="checkIn" placeholder="Check in date">
+                                    </div>
+                                    <div class="col-xl-6">
+                                      <label for="checkOut">Check out: </label>
+                                        <input type="date" id="checkOut" class="checkOut" onchange="checkoutChange()" placeholder="Check out date">
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <select class="form-select wide" id="default-select" onchange="adultCapacity(event)" class="">
+                                            <option value="1" data-display="Adult">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <select class="form-select wide" id="default-select" onchange="childrenCapacity(event)" class="">
+                                            <option value="0" data-display="Children">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <button type="button" onclick="checkAvailability()" class="boxed-btn3">Check Availability</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div id="summary">
+                              <div style="padding-top: 60px; display:flex; justify-content: center;" class="roomSelection" id="roomSelecttion">
+                                  <canvas id="allocation" height="671" width="789" onmousemove="canvasMouseMove(event)" onclick="canvasMouseClick(event)" style="justify-content: center;background: url('img/roomAllocation.jpg');"></canvas>
+                              </div>
+                              <div>
+                                <table width = 100%>
+                                  <tr>
+                                    <td><div id="booking" align="left"></div></td>
+                                    <td><div id="roomImage" align="center"></div></td>
+                                  </tr>
+                                </table>
+
+
+                              </div>
+
                             </div>
-                            <div class="col-xl-6">
-                                <input id="datepicker2" placeholder="Check out date">
-                            </div>
-                            <div class="col-xl-6">
-                                <select class="form-select wide" id="default-select" class="">
-                                    <option data-display="Adult">1</option>
-                                    <option value="1">2</option>
-                                    <option value="2">3</option>
-                                    <option value="3">4</option>
-                                </select>
-                            </div>
-                            <div class="col-xl-6">
-                                <select class="form-select wide" id="default-select" class="">
-                                    <option data-display="Children">1</option>
-                                    <option value="1">2</option>
-                                    <option value="2">3</option>
-                                    <option value="3">4</option>
-                                </select>
-                            </div>
-                            <div class="col-xl-12">
-                                <button type="submit" class="boxed-btn3">Check Availability</button>
-                            </div>
+
                         </div>
-                    </form>
-                </div>
-            </div>
-    </form>
-<!-- form itself end -->
+                    </div>
+            </form>
+    <!-- form itself end -->
 
         <!-- JS here -->
         <script src="js/vendor/modernizr-3.5.0.min.js"></script>
@@ -355,6 +379,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         <script src="js/mail-script.js"></script>
 
         <script src="js/main.js"></script>
+        <script src="js/booking.js"></script>
         <script>
             $('#datepicker').datepicker({
                 iconsLibrary: 'fontawesome',
